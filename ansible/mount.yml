@@ -1,0 +1,26 @@
+- name: Mounting the volume
+  hosts: my-ec2-instances
+  become: true
+
+  tasks:
+  
+    - name: Formato ext4
+      command: sudo mkfs -t ext4 /dev/xvdf
+
+    - name: Crear Directorio
+      command: sudo mkdir /vol_meilisearch
+
+    - name: Create mount point
+      file:
+        path: /vol_meilisearch
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Mount the volume
+      mount:
+        path: /vol_meilisearch
+        src: /dev/xvdf
+        fstype: ext4
+        state: mounted

@@ -1,0 +1,9 @@
+services:
+  typesense:
+    image: getmeili/meilisearch:v1.5
+    restart: on-failure
+    ports:
+      - 7700:7700
+    volumes:
+      - /vol_meilisearch/meilisearch_data:/data
+    # command: '--data-dir /data --api-key=xyz --enable-cors'

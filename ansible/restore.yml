@@ -1,0 +1,14 @@
+- name: restore data 
+  hosts: my-ec2-instances
+  become: true
+
+  tasks:
+    - name: Obtener fecha actual
+      ansible.builtin.set_fact:
+        current_date: "{{ ansible_date_time.date }}"
+
+    - name: Descomprimir archivo tar
+      ansible.builtin.unarchive:
+        src: "/vol_typesense/backup_typesense_data/gz_files/data_typesense_{{ current_date }}.tar.gz"  # Ruta del archivo tar comprimido
+        dest: /vol_typesense/typesense_data/  # Ruta de destino para la restauración
+        remote_src: yes

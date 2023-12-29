@@ -1,0 +1,12 @@
+- name: Crear backup de archivos
+  hosts: my-ec2-instances
+  become: true
+  tasks:
+    - name: Obtener fecha actual
+      ansible.builtin.set_fact:
+        current_date: "{{ ansible_date_time.date }}"
+
+    - name: Comprimir archivos
+      ansible.builtin.archive:
+        path: /vol_meilisearch/meilisearch_data/ # Ruta de los archivos que deseas respaldar
+        dest: "/vol_meilisearch/backup_meilisearch_data/gz_files/data_meilisearch_{{ current_date }}.tar.gz"  # Ruta y nombre del archivo comprimido con la fecha

@@ -1,0 +1,13 @@
+- name: Copiar archivo a instancia EC2
+  hosts: my-ec2-instances
+  become: true
+
+  tasks:
+    - name: Copiar archivo a la instancia
+      copy:
+        src: ./docker-compose.yaml
+        dest: /home/ec2-user/
+        owner: root 
+        group: root 
+        mode: "0755"
+
